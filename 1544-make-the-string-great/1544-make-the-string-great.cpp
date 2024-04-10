@@ -1,17 +1,4 @@
-// class Solution {
-// public:
-//     string makeGood(string s) {
-//         while(s.size()>0){
-            
-//             for(int i=0;i<s.size()-1;i++){
-//                 if((s[i] = s[i] + 32)|| (s[i]+32=s[i])){
-//                     s.erase(i,1);
-//                     s.erase(i,1);
-//                 }
-//             }
-//         }
-//     }
-// };
+
 class Solution {
  public:
   string makeGood(string s) {
