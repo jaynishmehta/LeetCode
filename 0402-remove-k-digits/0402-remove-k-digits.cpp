@@ -1,24 +1,3 @@
-// class Solution {
-// public:
-//     string removeKdigits(string num, int k) {
-//         char prev=num[0];
-//         int x=1;
-//         while(num.size()>0 && k>0){
-//             if(prev>num[x]){
-//                 num.erase(x-1,1);
-//                 k--;
-//             }
-//             else if(num[x]>prev){
-//                 num.erase(x,1);
-//                 k--;
-                
-//             }
-            
-//         }
-//         int a=stoi(num);
-//         return to_string(a);
-//     }
-// };
 class Solution {
 public:
     string removeKdigits(string num, int k) {
