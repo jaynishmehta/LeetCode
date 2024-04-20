@@ -6,7 +6,7 @@ public:
         vector<int>rightmaxi(n);
         int maxi=0;
         for(int i=0;i<n;i++){
-            leftmaxi[i]=max(maxi,static_cast<int>(height[i]));
+            leftmaxi[i]=max(maxi,static_cast<int>(height[i])); //prefix max sum 
             maxi=leftmaxi[i];
         }
         maxi=0;
