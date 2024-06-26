@@ -1,11 +1,14 @@
 class Solution {
     int MAX = 1e7+7;
     int f(int i, int sum, vector<int>& coins, vector<vector<long long int>>& dp) {
-        if (sum == 0) {
-            return 0;
-        }
+        // if (sum == 0) {
+        //     return 0;
+        // }
         if (i < 0) {
+            if(sum==0)return 0;
+            else{
             return MAX;
+            }
         }
         
         if (dp[i][sum] != -1) {
@@ -17,9 +20,6 @@ class Solution {
         long long int pick = MAX;
         if (coins[i] <= sum) {
             pick = 1+f(i, sum - coins[i], coins, dp);
-            // if (res != INT_MAX) {
-            //     pick = res + 1;
-            // }
         }
         
         dp[i][sum] = min(pick, notpick);
