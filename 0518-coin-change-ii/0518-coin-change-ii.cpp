@@ -17,7 +17,23 @@ class Solution {
 public:
     int change(int amount, vector<int>& coins) {
         int n= coins.size();
-        vector<vector<int>>dp(n,vector<int>(amount+1,-1));
-        return f(n-1,amount,coins,dp);
+        vector<vector<int>>dp(n,vector<int>(amount+1,0));
+        // return f(n-1,amount,coins,dp);
+        for (int i = 0; i <= amount; i++) {
+        if (i % coins[0] == 0)
+            dp[0][i] = 1; 
+            // At ind==0, we are considering the first element, if the target value is                                   divisible by the first coin’s value, we set the cell's value as 1 or else 0.
+        }
+        for(int i=1;i<n;i++){
+            for(int j=0;j<=amount;j++){
+                int pick=0;
+                if(j>=coins[i]){
+                   pick= dp[i][j-coins[i]];
+                }
+                int notpick= dp[i-1][j];
+                dp[i][j]=pick+notpick;
+            }
+        }
+        return dp[n-1][amount];
     }
 };
