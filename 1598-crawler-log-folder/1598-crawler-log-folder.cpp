@@ -2,7 +2,7 @@ class Solution {
 public:
     int minOperations(vector<string>& logs) {
         int ans=0;
-        for(auto it:logs){
+        for(auto &it:logs){
             if(it=="./"){
                 ans+=0;
             }
