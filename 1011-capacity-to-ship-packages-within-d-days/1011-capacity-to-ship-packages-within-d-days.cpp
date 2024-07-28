@@ -13,7 +13,8 @@ class Solution {
                 temp=w[i];
             }
         }
-        if(temp>0)cnt+=ceil(double(temp)/double(mid));
+        // if(temp>0)cnt+=ceil(double(temp)/double(mid));
+        if(temp>0)cnt+=1;
         if(cnt<=day)return true;
         else return false;
     }
@@ -25,7 +26,7 @@ public:
         while(l<=h){
             long long mid=l+(h-l)/2;
             if(func(weights,days,mid)){
-                cout<<ans<<" ";
+                // cout<<ans<<" ";
                 ans=mid;
                 h= mid-1;
             }
