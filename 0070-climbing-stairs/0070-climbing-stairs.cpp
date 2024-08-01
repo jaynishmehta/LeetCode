@@ -1,16 +1,21 @@
 class Solution {
+    int solve(vector<int>&dp,int i){
+        if(i<=0){
+            return 1;
+        }
+        if(dp[i]!=-1)return dp[i];
+        
+        int x= solve(dp,i-1);
+        int y= 0;
+        if(i>=2)
+        {
+           y= solve(dp,i-2);
+        }
+        return dp[i]=x+y;
+    }
 public:
     int climbStairs(int n) {
-        if (n <= 1) return 1; // Base case: 1 way to climb 0 or 1 step
-        // inintialize the array do not give -1 just the size;
-        vector<int> dp(n + 1); // Initialize the dp array
-        dp[0] = 1; // 1 way to stay at the ground (doing nothing)
-        dp[1] = 1; // 1 way to reach the first step
-
-        for (int i = 2; i <= n; ++i) {
-            dp[i] = dp[i - 1] + dp[i - 2]; // Ways to reach the ith step
-        }
-
-        return dp[n]; 
+        vector<int>dp(n+1,-1);
+        return solve(dp,n);
     }
 };
