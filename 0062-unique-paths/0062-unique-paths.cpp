@@ -1,23 +1,23 @@
 class Solution {
-     int f(int m, int n, int row, int col,vector<vector<int>>&dp) {
-        if(row == m-1 && col == n-1) {
+    int solve(int i,int j,vector<vector<int>>&dp){
+        if(i<0 || j<0)return 0;
+        if(i==0 && j==0){
             return 1;
         }
-        if(row >= m || col >= n) {
-            return 0;
-        }
-        if(dp[row][col]!=-1)return dp[row][col];
-         
-        // Move right and down
-        int right = f(m, n, row, col + 1,dp);
-        int down = f(m, n, row + 1, col,dp);
+        if(dp[i][j]!=-1)return dp[i][j];
         
-        return dp[row][col]= right + down;
+        int right=0,down=0;
+        if(j>0){
+            right= solve(i,j-1,dp);
+        }
+        if(i>0){
+            down = solve(i-1,j,dp);
+        }
+        return dp[i][j]= right+down;
     }
 public:
     int uniquePaths(int m, int n) {
-        int ans;
-        vector<vector<int>>dp(100,vector<int>(101,-1));
-        return f(m,n,0,0,dp);
+        vector<vector<int>>dp(m,vector<int>(n+1,-1));
+        return solve(m-1,n-1,dp);
     }
 };
