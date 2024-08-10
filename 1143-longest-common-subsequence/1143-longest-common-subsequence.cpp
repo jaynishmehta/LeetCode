@@ -9,7 +9,7 @@ class Solution {
             return dp[i][j]= 1 + bond(i-1,j-1,t1,t2,dp);
         }
         else{
-            return dp[i][j]=0+ max(bond(i-1,j,t1,t2,dp),bond(i,j-1,t1,t2,dp));
+            return dp[i][j]=max(bond(i-1,j,t1,t2,dp),bond(i,j-1,t1,t2,dp));
         }
     }
 public:
