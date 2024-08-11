@@ -1,24 +1,25 @@
 class Solution {
-public:
     const int mod = 1e9 + 7;
-
-    int numDistinct(string s, string t) {
-        vector<vector<int>>dp(s.size()+1,vector<int>(t.size()+1,0));
-        for(int i=0;i<=s.size();++i)dp[i][0]=1;
-         int m = s.size(), n = t.size();
+   int bond(int i,int j,string &s, string &t,vector<vector<int>>&dp){
+        if(j<0)return 1;
+        if(i<0)return 0;
         
-        for (int i = 1; i <= m; ++i) {
-            for (int j = 1; j <= n; ++j) {
-                // If characters match, add ways of matching without the current character of s
-                if (s[i - 1] == t[j - 1]) {
-                    dp[i][j] = (dp[i - 1][j - 1] + dp[i - 1][j])%mod;
-                } else {
-                    dp[i][j] = dp[i - 1][j];
-                }
-            }
+        if(dp[i][j]!=-1)return dp[i][j];
+        
+        if(s[i]==t[j]){
+            return dp[i][j]= ((bond(i-1,j-1,s,t,dp))%mod+ (bond(i-1,j,s,t,dp))%mod)%mod;  
+                                            // this sinifiessearch for t[j] from the last of i in string s
         }
-        
-        return dp[m][n];
+        else{   // if not found reduce the search space by 1 in s
+            return dp[i][j]= (bond(i-1,j,s,t,dp))%mod;
+        }
     }
-    
+public:
+    int numDistinct(string s, string t) {
+        int n=s.size();
+        int m= t.size();
+        vector<vector<int>>dp(n,vector<int>(m+1,-1));
+        
+        return bond(n-1,m-1,s,t,dp);
+    }
 };
