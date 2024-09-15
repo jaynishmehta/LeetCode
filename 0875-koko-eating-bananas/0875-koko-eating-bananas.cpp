@@ -1,31 +1,34 @@
 class Solution {
-    bool func(vector<int>& piles,long long int mid,long long int h){
-        long long time=0;
-        for(int i=0;i<piles.size();i++){
-            time+= ceil(double(piles[i])/double(mid));
+    long long bond(vector<int>&piles,long long mid){
+        long long sum=0;
+        for(auto it:piles){
+            sum+=ceil(double(it)/double(mid));
+            // cout<<sum<<endl;
         }
-       if(time<=h)return true;
-        else return false;
+        return sum;
     }
 public:
     int minEatingSpeed(vector<int>& piles, int h) {
-        long long int low= 1;
-        long long int high= 1;
-        long long ans=1;
-        for(int i=0;i<piles.size();i++){
-           if(high<piles[i])high=piles[i];
-        }
+        long long low= 1;
+        long long  high=0;
+        int ans=0;
+        // int mini=INT_MAX;
+        for(auto it:piles)high+=it;
         while(low<=high){
             long long mid= low+(high-low)/2;
-            long long x= func(piles,mid,h);
-            
-            if(x==0){
-                low= mid+1;
+            long long x=bond(piles,mid);
+            if(x<=h){
+               // ans= min(mid,ans);
+                ans= mid;
+               high= mid-1;
+                cout<<ans<<" ";
             }
             else{
-                high=mid-1;
-                ans= mid;
-            } 
+                // ans= mid;
+                low= mid+1;
+                
+                // high= mid-1;
+            }
         }
         return ans;
     }
