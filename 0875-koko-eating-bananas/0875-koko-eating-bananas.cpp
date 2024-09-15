@@ -12,22 +12,23 @@ public:
         long long low= 1;
         long long  high=0;
         int ans=0;
-        // int mini=INT_MAX;
-        for(auto it:piles)high+=it;
+        int maxi=INT_MIN;
+        for(auto it:piles){
+            // high+=it;
+            maxi = max(maxi,it);
+        }
+        high= maxi;
         while(low<=high){
             long long mid= low+(high-low)/2;
             long long x=bond(piles,mid);
             if(x<=h){
-               // ans= min(mid,ans);
                 ans= mid;
                high= mid-1;
                 cout<<ans<<" ";
             }
             else{
-                // ans= mid;
                 low= mid+1;
                 
-                // high= mid-1;
             }
         }
         return ans;
