@@ -5,20 +5,17 @@ public:
         
         unordered_map<int,int>m1;
         for(auto it:nums)m1[it]++;
-        multimap<int,int>m2;
+        priority_queue<pair<int,int>>pq;
         for(auto it:m1){
-            // m2[it.second]=it.first;
-            m2.insert(pair<int,int>(it.second,it.first));
+            // pair<int,int>p1 = {it.second,it.first};
+            // pq.push(pair<int,int>(it.second,it.first)); can be inserted in many ways
+            pq.push({it.second,it.first});
         }
-        for(auto it:m2){
-            v.push_back(it.second);
-        }
-        vector<int>ans;
-        reverse(v.begin(),v.end());
         for(int i=0;i<k;i++){
-            ans.push_back(v[i]);
+             v.push_back(pq.top().second);
+            pq.pop();
+           
         }
-        
-        return ans;
+        return v;
     }
 };
