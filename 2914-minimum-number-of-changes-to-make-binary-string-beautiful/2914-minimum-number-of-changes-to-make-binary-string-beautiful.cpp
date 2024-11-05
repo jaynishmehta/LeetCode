@@ -7,9 +7,9 @@ public:
             if(s[i]!=prev){
                 cnt++;
             }
-            if(i<s.size()-1){
+            // if(i<s.size()-1){
                 prev=s[i+1];
-            }
+            // }
             
         }
         return cnt;
