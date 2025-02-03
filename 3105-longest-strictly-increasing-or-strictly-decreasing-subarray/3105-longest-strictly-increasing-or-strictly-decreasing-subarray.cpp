@@ -1,28 +1,20 @@
-#include<bits/stdc++.h>
 class Solution {
 public:
     int longestMonotonicSubarray(vector<int>& nums) {
-        int cnt_dec=1;
-        int cnt_inc=1;
         int maxi=1;
+        int inc_c=1;
+        int dec_c=1;
         for(int i=0;i<nums.size()-1;i++){
-            if(nums[i+1]-nums[i] >0){
-                cnt_inc++;
-                maxi= max(maxi,cnt_inc);
+            if(nums[i+1]-nums[i]>0){
+                inc_c++;
+                maxi= max(maxi,inc_c);
             }
-            else{
-                cnt_inc=1;
+            else inc_c=1;
+            if(nums[nums.size()-1-i]- nums[nums.size()-2-i]<0){
+                dec_c++;
+                maxi = max(maxi,dec_c);
             }
-            
-        }
-        for(int i=0;i<nums.size()-1;i++){
-            if(nums[i+1]-nums[i]<0){
-                cnt_dec++;
-                maxi= max(maxi,cnt_dec);
-            }
-            else{
-                cnt_dec=1;
-            }
+            else dec_c=1;
         }
         return maxi;
     }
