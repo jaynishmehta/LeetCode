@@ -1,30 +1,19 @@
 class Solution {
 public:
-    int countDays(int days, vector<vector<int>>& intervals) {
-        // Sort the intervals by their start time
-        sort(intervals.begin(), intervals.end());
-        
-        int totalCoveredDays = 0;
-        int currentStart = intervals[0][0];
-        int currentEnd = intervals[0][1];
-        
-        // Iterate through the intervals to merge overlapping ones and calculate the covered days
-        for (int i = 1; i < intervals.size(); i++) {
-            if (intervals[i][0] <= currentEnd) { // Overlapping intervals
-                currentEnd = max(currentEnd, intervals[i][1]);
-            } else {
-                // Add the days covered by the current interval
-                totalCoveredDays += (currentEnd - currentStart + 1);
-                // Move to the next interval
-                currentStart = intervals[i][0];
-                currentEnd = intervals[i][1];
+    int countDays(int days, vector<vector<int>>& m) {
+
+        // vector<int>v(days,0);
+        sort(m.begin(),m.end());
+        int maxi=m[0][1];;
+        // int prev= 
+        int cnt=m[0][0]-1;
+        for(int i=0;i<m.size();i++){
+            if(m[i][0]>maxi){
+                cnt+=(m[i][0]-maxi -1);
             }
+            if(maxi<m[i][1])maxi= m[i][1];
         }
-        // Add the days covered by the last interval
-        totalCoveredDays += (currentEnd - currentStart + 1);
-        
-        // Calculate the remaining days
-        int remainingDays = days - totalCoveredDays;
-        return remainingDays;
+        cnt+= (days-max(m[m.size()-1][1],maxi));
+        return cnt;
     }
 };
