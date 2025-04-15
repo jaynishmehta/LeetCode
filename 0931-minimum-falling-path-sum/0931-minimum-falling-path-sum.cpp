@@ -1,27 +1,38 @@
+
 class Solution {
+    // declaring outside handles the tle.
+     int dp[100][100];
+ int f(int i,int j,vector<vector<int>>& mt){
+        int m= mt.size();
+        int n = mt[0].size();
+        
+        if(i>=m ||j<0 || j>=n)return 100000;
+        if(i==m-1)return mt[i][j];
+
+        if(dp[i][j]!=-100000)return dp[i][j];
+
+        // int below=1e5,left=1e5,right=1e5;
+
+        int below = mt[i][j]+f(i+1,j,mt);
+        int left = mt[i][j]+f(i+1,j-1,mt);
+        int right = mt[i][j]+f(i+1,j+1,mt);
+
+        int temp = min(below,min(left,right));
+        return dp[i][j]=temp;
+    }
 public:
-    int minFallingPathSum(vector<vector<int>>& matrix) {
-        int row= matrix.size();
-        int col = matrix[0].size();
-        vector<vector<int>>dp(100,vector<int>(101,-1));
-        
-        for(int j=0;j<col;j++)dp[0][j]=matrix[0][j];
-        
-        for(int i=1;i<row;i++){
-            for(int j=0;j<col;j++){
-                int d  = matrix[i][j]+dp[i-1][j];
-                int lf = (j-1>=0)?matrix[i][j]+dp[i-1][j-1]:1e7;
-                int rf = (j+1<col)?matrix[i][j]+dp[i-1][j+1]:1e7;
-                
-                dp[i][j]=min(d, min(lf,rf));
+    int minFallingPathSum(vector<vector<int>>& mt) {
+       
+        int minii=1e5;
+        for(int i=0; i<100; ++i){
+            for(int j=0; j<100; ++j){
+                dp[i][j] = -100000;
             }
         }
-        
-        // retriving min element from the 0th row from the dp;
-        int mini= 1e7;
-        for(int i=0;i<col;i++){
-            mini=min(mini,dp[row-1][i]);
+        for(int i=0;i<mt[0].size();i++){
+            
+            minii = min(f(0,i,mt),minii);
         }
-        return mini;
+        return minii;
     }
 };
