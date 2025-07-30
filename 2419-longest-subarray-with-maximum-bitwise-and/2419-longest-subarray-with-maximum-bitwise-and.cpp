@@ -8,7 +8,7 @@ public:
         }
         int cnt=1;
         int ans=0;
-        int prev=maxi;
+        // int prev=maxi;
         for(int i=0;i<nums.size();i++){
             if(nums[i]==maxi && (i>0) && (nums[i-1]==maxi)){
                 cnt+=1;
