@@ -1,18 +1,22 @@
 class Solution {
+    // [7,0,9,6,9,6,1,7,9,0,1,2,9,0,3]
+    // -,-------------,-------------
 public:
-    int solve(int i,vector<int>&nums,vector<int>&dp){
-        if(i>=nums.size()-1)return 0;
-        if(dp[i]!=100001)return dp[i];
-
-        for(int pos=1;pos<=nums[i];pos++){
-            int ans = solve(i+pos,nums,dp);
-            dp[i]=min(dp[i],1+ans);
-        }
-        return dp[i];
-    }
-
     int jump(vector<int>& nums) {
-        vector<int>dp(nums.size(),100001);
-        return solve(0,nums,dp);
+        int jumps = 0;
+        int currEnd = 0;
+        int farthest = 0;
+
+        for (int i = 0; i < nums.size() - 1; i++) {
+            farthest = max(farthest, i + nums[i]);
+
+            if (i == currEnd) {
+                jumps++;
+                currEnd = farthest;
+            }
+        }
+
+        
+        return jumps;
     }
 };
