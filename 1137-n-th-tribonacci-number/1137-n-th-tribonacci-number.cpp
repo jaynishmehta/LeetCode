@@ -1,26 +1,17 @@
 class Solution {
-     int fun(int n){
-        int first = 0, second = 1;
-        int third = 1;
-        if(n==0)return 0;
-        else if(n==1)return 1;
-        else if(n==2)return 1;
-        else if(n>=3){
-            for (int i = 3; i <=n; i++) 
-            {
-                int curr = first + second + third;
-                first = second;
-                second = third;
-                third = curr;
-            }
-        }
-        return third;
-        
-        
-    }
 public:
     int tribonacci(int n) {
-        long int ans= fun(n);
-        return ans;
+        if(n==0)return 0;
+        if(n==1 || n==2)return 1;
+        int prev1=1;
+        int prev2=1;
+        int prev3=0;
+        for(int i=3;i<=n;i++){
+            int ans= prev1+prev2+prev3;
+            prev3=prev2;
+            prev2= prev1;
+            prev1=ans;
+        }
+        return prev1;
     }
 };
