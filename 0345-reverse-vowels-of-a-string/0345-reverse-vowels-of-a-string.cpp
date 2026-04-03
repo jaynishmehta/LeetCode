@@ -2,19 +2,20 @@ class Solution {
 public:
     string reverseVowels(string s) {
         int n= s.size();
-       
         int i=0;
         int j= n-1;
         while(i<j){
-            if((s[i]=='a' || s[i]=='e' || s[i]=='i' || s[i]=='o' || s[i]=='u' || s[i]=='A' || s[i]=='E' || s[i]=='I' || s[i]=='O' || s[i]=='U') && (s[j]=='a' || s[j]=='e' || s[j]=='i' || s[j]=='o' || s[j]=='u' || s[j]=='A' || s[j]=='E' || s[j]=='I' || s[j]=='O' || s[j]=='U') ){
+            char x= tolower(s[i]);//A-->a
+            char y= tolower(s[j]);
+            if((x=='a' || x=='e' || x=='i' || x=='o' || x=='u' ) && (y=='a' || y=='e' || y=='i' || y=='o' || y=='u') ){
                 swap(s[i],s[j]);
                 i++;
                 j--;
             }
-            else if(s[i]=='a' || s[i]=='e' || s[i]=='i'|| s[i]=='o' || s[i]=='u' || s[i]=='A' || s[i]=='E' || s[i]=='I' || s[i]=='O' || s[i]=='U'){
+            else if(x=='a' || x=='e' || x=='i' || x=='o' || x=='u' ){
                 j--;
             }
-            else if(s[j]=='a'  || s[j]=='e' || s[j]=='i' || s[j]=='o' || s[j]=='u' || s[j]=='A' || s[j]=='E' || s[j]=='I' || s[j]=='O' || s[j]=='U'){
+            else if(y=='a' || y=='e' || y=='i' || y=='o' || y=='u'){
                 i++;
             }
             else{
