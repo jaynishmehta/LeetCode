@@ -1,53 +1,29 @@
 class Solution {
 public:
     string reverseVowels(string s) {
-        vector<char>v;
-        for(auto it:s){
-            char x= tolower(it);
-            if(x=='a'){
-                v.push_back(it);
+        int n= s.size();
+       
+        int i=0;
+        int j= n-1;
+        while(i<j){
+            if((s[i]=='a' || s[i]=='e' || s[i]=='i' || s[i]=='o' || s[i]=='u' || s[i]=='A' || s[i]=='E' || s[i]=='I' || s[i]=='O' || s[i]=='U') && (s[j]=='a' || s[j]=='e' || s[j]=='i' || s[j]=='o' || s[j]=='u' || s[j]=='A' || s[j]=='E' || s[j]=='I' || s[j]=='O' || s[j]=='U') ){
+                swap(s[i],s[j]);
+                i++;
+                j--;
             }
-            if(x=='e'){
-                v.push_back(it);
+            else if(s[i]=='a' || s[i]=='e' || s[i]=='i'|| s[i]=='o' || s[i]=='u' || s[i]=='A' || s[i]=='E' || s[i]=='I' || s[i]=='O' || s[i]=='U'){
+                j--;
             }
-            if(x=='i'){
-                v.push_back(it);
+            else if(s[j]=='a'  || s[j]=='e' || s[j]=='i' || s[j]=='o' || s[j]=='u' || s[j]=='A' || s[j]=='E' || s[j]=='I' || s[j]=='O' || s[j]=='U'){
+                i++;
             }
-            if(x=='o'){
-                v.push_back(it);
-            }
-            if(x=='u'){
-                v.push_back(it);
+            else{
+                i++;
+                j--;
             }
             
         }
-        //i,e,e,a
-        // a,e,e,i
-        reverse(v.begin(),v.end());
-        int j=0;
-        for(int i=0;i<s.size();i++){
-            char x= tolower(s[i]);
-            if(x=='a'){
-                s[i]=v[j];
-                j++;
-            }
-            if(x=='e'){
-                s[i]=v[j];
-                j++;
-            }
-            if(x=='i'){
-                s[i]=v[j];
-                j++;
-            }
-            if(x=='o'){
-                s[i]=v[j];
-                j++;
-            }
-            if(x=='u'){
-                s[i]= v[j];
-                j++;
-            }
-        }
         return s;
+
     }
 };
