@@ -1,59 +1,42 @@
 class Solution {
 public:
-    // int bfs()
     int orangesRotting(vector<vector<int>>& grid) {
-        int cnt=0;
-        queue<pair<int,pair<int,int>>>q;  //(time,{i,j});
-        vector<vector<int>>vis(grid.size(),vector<int>(grid[0].size(),0));
+        vector<vector<int>>v(grid.size(),vector<int>(grid[0].size(),0));
+        queue<pair<int,pair<int,int>>>q;
         for(int i=0;i<grid.size();i++){
             for(int j=0;j<grid[0].size();j++){
                 if(grid[i][j]==2){
                     q.push({0,{i,j}});
-                    vis[i][j]=1;
+                    v[i][j]=1;
                 }
             }
         }
+        int maxtime=0;
         while(!q.empty()){
-            
-            // pair<int,int>p=q.front();
-            pair<int,pair<int,int>>p= q.front();
+            pair<int,pair<int,int>>x = q.front();
             q.pop();
-            int i= p.second.first;
-            int j= p.second.second;
-            int t = p.first;
-            if(((i+1>=0 && i+1<grid.size()) &&(j>=0 && j<grid[0].size())) && vis[i+1][j]==0 && grid[i+1][j]==1){
-                grid[i+1][j]=2;
-                vis[i+1][j]=1;
-                q.push({t+1,{i+1,j}});
-                cnt=max(cnt,t);
+            int time= x.first;
+            maxtime=max(maxtime,time);
+            int row= x.second.first;
+            int col= x.second.second;
+            vector<int>r={1,0,-1,0};
+            vector<int>c={0,1,0,-1};
+            
+            for(int i=0;i<4;i++){
+                int nrow= row+r[i];
+                int ncol= col+c[i];
+                if((nrow>=0 && nrow<grid.size())&&(ncol>=0 && ncol<grid[0].size())&&(v[nrow][ncol]==0) && grid[nrow][ncol]==1){
+                    grid[nrow][ncol]=2;
+                    v[nrow][ncol]=1;
+                    q.push({time+1,{nrow,ncol}});
+                }
             }
-            if(((i-1>=0 && i-1<grid.size()) &&(j>=0 && j<grid[0].size())) && vis[i-1][j]==0 && grid[i-1][j]==1){
-                grid[i-1][j]=2;
-                vis[i-1][j]=1;
-                q.push({t+1,{i-1,j}});
-                cnt=max(cnt,t);
-            }
-            if(((i>=0 && i<grid.size()) &&(j+1>=0 && j+1<grid[0].size())) && vis[i][j+1]==0 && grid[i][j+1]==1){
-                grid[i][j+1]=2;
-                vis[i][j+1]=1;
-                q.push({t+1,{i,j+1}});
-                cnt=max(cnt,t);
-            }
-            if(((i>=0 && i<grid.size()) &&(j-1>=0 && j-1<grid[0].size())) && vis[i][j-1]==0 && grid[i][j-1]==1){
-                grid[i][j-1]=2;
-                vis[i][j-1]=1;
-                q.push({t+1,{i,j-1}});
-                cnt=max(cnt,t);
-            }
-            cnt= max(cnt,t);
         }
-
         for(int i=0;i<grid.size();i++){
             for(int j=0;j<grid[0].size();j++){
                 if(grid[i][j]==1)return -1;
             }
         }
-        return cnt;
-
+        return maxtime;
     }
 };
