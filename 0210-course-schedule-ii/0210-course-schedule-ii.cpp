@@ -7,7 +7,7 @@ public:
 
         for(auto it : adj[node]){
             if(!vis[it]){
-                dfs(it, vis, pathVis, adj, st);
+                if(dfs(it, vis, pathVis, adj, st)) return true;
             }
             else if(pathVis[it]){
                 return true;   // cycle detected
