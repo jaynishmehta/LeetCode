@@ -1,25 +1,26 @@
 class Solution {
 public:
-    bool dfs(int node, vector<int>& vis, vector<int>& pathVis, vector<vector<int>>& adj, stack<int>& st){
+    void dfs(int node, vector<int>& vis, vector<int>& pathVis, vector<vector<int>>& adj, stack<int>& st){
 
         vis[node] = 1;
         pathVis[node] = 1;
 
         for(auto it : adj[node]){
             if(!vis[it]){
-                if(dfs(it, vis, pathVis, adj, st)) return true;
+                dfs(it, vis, pathVis, adj, st);
             }
-            else if(pathVis[it]){
-                return true;   // cycle detected
-            }
+            // else if(pathVis[it]){
+            //     break;   // cycle detected
+            // }
         }
 
         pathVis[node] = 0;
         st.push(node);
 
-        return false;
+        // return false;
     }
     vector<int> findOrder(int courses, vector<vector<int>>& pr) {
+        // we are checking path are visited i.e cycle exists or not, then using topo;
         vector<vector<int>> adj(courses);
 
         for(int i = 0; i < pr.size(); i++){
@@ -32,7 +33,7 @@ public:
 
         for(int i = 0; i < courses; i++){
             if(!vis[i]){
-                if(dfs(i, vis, pathVis, adj, st)) return {};
+                dfs(i, vis, pathVis, adj, st);
             }
         }
         vector<int>ans;
