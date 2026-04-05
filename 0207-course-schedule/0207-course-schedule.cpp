@@ -1,36 +1,44 @@
 class Solution {
 public:
-    bool detect(int i, vector<vector<int>>&adj,vector<int>&v){
-        v[i]=1;
-        queue<pair<int,int>>q;
-        q.push({i,-1});
-        while(!q.empty()){
-            int parent=q.front().second;
-            int node= q.front().first;
-            q.pop();
-            for(auto it:adj[i]){
-                if(!v[it]){
-                    v[it]=1;
-                    q.push({it,i});
-                }
-                else if(it!=parent){
-                    return true;
-                }
+
+    bool dfs(int node, vector<int>& vis, vector<int>& pathVis, vector<vector<int>>& adj, stack<int>& st){
+
+        vis[node] = 1;
+        pathVis[node] = 1;
+
+        for(auto it : adj[node]){
+            if(!vis[it]){
+                if(dfs(it, vis, pathVis, adj, st)) return true;
+            }
+            else if(pathVis[it]){
+                return true;   // cycle detected
             }
         }
+
+        pathVis[node] = 0;
+        // st.push(node);
+
         return false;
     }
+
     bool canFinish(int courses, vector<vector<int>>& pr) {
-        vector<vector<int>>adj(courses,vector<int>());
-        for(int i=0;i<pr.size();i++){
+
+        vector<vector<int>> adj(courses);
+
+        for(int i = 0; i < pr.size(); i++){
             adj[pr[i][1]].push_back(pr[i][0]);
         }
-        vector<int>v(adj.size(),0);
-        for(int i=0;i<adj.size();i++){
-            if(!v[i]){
-                if(detect(i,adj,v))return false;
+
+        vector<int> vis(courses, 0);
+        vector<int> pathVis(courses, 0);
+        stack<int> st; // no need for topological arrangements in this ques
+
+        for(int i = 0; i < courses; i++){
+            if(!vis[i]){
+                if(dfs(i, vis, pathVis, adj, st)) return false;
             }
         }
+
         return true;
     }
 };
