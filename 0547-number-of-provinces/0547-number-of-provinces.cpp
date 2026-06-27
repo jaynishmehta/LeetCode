@@ -1,21 +1,21 @@
 class Solution {
 public:
-    void dfs(int node,vector<int>&v,vector<vector<int>>& is_c){
-            // cout<<node<<" ";
-            v[node]=1;
-             for(int neighbor = 0; neighbor < is_c.size(); neighbor++) {
-                if (is_c[node][neighbor] == 1 && !v[neighbor]) {  // Check if there's a connection
-                    dfs(neighbor, v, is_c);
-                }
+    void dfs(int node,vector<int>&v,vector<vector<int>>& c,int cnt){
+        v[node]=1;
+        // cnt++;
+        for(int neig=0;neig<c.size();neig++){
+            if(c[node][neig]==1 && !v[neig]){
+                dfs(neig,v,c,cnt);
             }
         }
-    int findCircleNum(vector<vector<int>>& is_c) {
-        vector<int>v(is_c.size(),0);
+    }
+    int findCircleNum(vector<vector<int>>& c) {
         int cnt=0;
-        for(int i=0;i<v.size();i++){
-            if(v[i]==0){
+        vector<int>v(c.size(),0);
+        for(int i=0;i<c.size();i++){
+            if(!v[i]){
                 cnt++;
-                dfs(i,v,is_c); // pass index not value i.e v[i] just i
+                dfs(i,v,c,cnt);
             }
         }
         return cnt;
