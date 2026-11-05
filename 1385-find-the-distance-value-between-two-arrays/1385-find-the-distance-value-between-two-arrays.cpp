@@ -7,7 +7,6 @@ public:
             for(auto it:arr2){
                 if(abs(arr1[i]-it)<=d){
                     temp=false;
-                    // cnt = min(cnt,abs(arr1[i]-it));
                 }
             }
             if(temp)cnt++;
